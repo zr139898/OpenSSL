@@ -1,0 +1,48 @@
+[ ca ]
+default_ca = exampleca
+
+[exampleca]
+dir              = /home/blue/openssl/exampleca
+certificate      = $dir/cacert.pem
+database         = $dir/index.txt
+new_certs_dir    = $dir/certs
+private_key      = $dir/private/cakey.pem
+serial           = $dir/serial
+
+default_crl_days = 7
+default_days     = 365
+default_md       = md5
+
+policy           = exampleca_policy
+x509_extensions  = certificate_extensions
+
+[ exampleca_policy ]
+commonName             = supplied
+stateOrProvinceName    = supplied
+countryName            = supplied
+emailAddress           = supplied
+organizationName       = supplied
+organizationalUnitName = optional
+
+[ certificate_extensions ]
+basicConstraints = CA:false
+
+[ req ]
+default_bits       = 2048
+default_keyfile    = /home/blue/openssl/exampleca/private/cakey.pem
+default_md         = md5
+
+prompt             = no # get the info from the section by the below key
+distinguished_name = root_ca_distinguished_name
+
+x509_extensions    = root_ca_extensions
+
+[ root_ca_distinguished_name ]
+commonName          = Example CA
+stateOrProvinceName = Virginia
+countryName         = US
+emailAddress        = ca@exampleca.org
+organizationName    = Root Certification Authority
+
+[ root_ca_extensions ]
+basicConstraints = CA:true
